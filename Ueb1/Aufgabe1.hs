@@ -13,5 +13,12 @@ ismulti (a,b,c) = isInt(s!!2/s!!1) && isInt(s!!2/s!!0) where s = sort[a,b,c]
 -- Aufgabe 4
 toAscii :: Char -> Int
 toAscii s = fromEnum s
+isCapital s = n > 64 && n < 91 where n = toAscii s
+toLower s = if isCapital s then toEnum lowerint::Char else s 
+	where lowerint = toAscii(s) + 32
+	
+-- Aufgabe 5
+isLetter s = isCapital s || i > 96 && i < 123 where i = toAscii s
 
-toLower s = if 
+-- Aufgabe 6
+toGreg (d m y) = 
