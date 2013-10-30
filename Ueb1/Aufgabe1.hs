@@ -1,6 +1,6 @@
 import Data.List
 -- Aufgabe 1
-ispyth (x,y,z) = x*x+y*y == z*z
+ispyth (x,y,z) = x*x+y*y == z*z || y*y+z*z=x*x || z*z+x*x=y*y
 
 -- Aufgabe 2
 isleap j | 0==j`mod`100 = 0 == j`mod`400
