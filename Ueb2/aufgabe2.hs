@@ -46,4 +46,33 @@ negation 1 = 0
 negation 0 = 1
 
 --Aufgabe 4
-binsum::Int->IntSW
+binsum::Int->Int
+binsum 0 = 0
+binsum n | n`mod`2==0 = binsum(n-1)
+	|otherwise = 1 + binsum(n-1)
+
+--Aufgabe 5
+hex2okt::String->String
+hex2okt n = "a"
+
+--Aufgabe 6
+-- KP ob ich die Aufgabe richtig verstanden hab: was mein Prog 
+-- machen soll ist: aus der ausgerechneten Quersumme wieder die
+-- Quersumme ausrechnen, wenn die Quersumme > 9 ist
+digitSum::Int->Int
+digitSum n | n < 0 = error "nope.."
+	| n < 10 = n
+	| otherwise = digitSum (qu n)
+qu::Int->Int	
+qu = f 0 where 
+	f a 0 = a
+	f a n = f (a+r) q where 
+		(q,r) = n `divMod`10
+
+--Aufgabe 7
+addList::[Int]->[Int]->[Int]
+addList a b | length(a) /= length(b) = error "fucked up"
+	| otherwise = addListRec a b
+addListRec [] [] = []
+addListRec (a:as) (b:bs) = (a+b) : addList as bs
+
