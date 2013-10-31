@@ -3,19 +3,33 @@ import Text.Regex
 import Numeric
 
 --Aufgabe 1
+-- Ausrichtung -> 0/0 ist oben links
 type Point=(Double, Double)
 type Rectangle=(Point,Point)
 area::Rectangle -> Double
 area (a,b)= abs(fst(a)-fst(b)) * abs(snd(a)-snd(b))
 
 overlaps::Rectangle->Rectangle->Bool
-overlaps ((x1,y1),(x2,y2)) ((x3,y3),(x4,y4)) = x4 > y4 
+overlaps ((x1,y1),(x2,y2)) ((x3,y3),(x4,y4)) = ((l1 < r2) &&(r1 > l2) && (t1 < b2) && (b1 > t2)) 
 	where l1 = sort[x1,x2]!!0;
 		l2 = sort[x3,x4]!!0;
 		r1 = sort[x1,x2]!!1;
 		r2 = sort[x3,x4]!!1;
+		t1 = sort[y1,y2]!!0;
+		t2 = sort[y3,y4]!!0;
+		b1 = sort[y1,y2]!!1;
+		b2 = sort[y3,y4]!!1;
 
---contains::Rectangle->Rectangle->Bool
+contains::Rectangle->Rectangle->Bool
+contains ((x1,y1),(x2,y2)) ((x3,y3),(x4,y4)) = (l1 < l2) && (r1 > r2) && (t1 < t2) && (b1 > b2)
+	where l1 = sort[x1,x2]!!0;
+		l2 = sort[x3,x4]!!0;
+		r1 = sort[x1,x2]!!1;
+		r2 = sort[x3,x4]!!1;
+		t1 = sort[y1,y2]!!0;
+		t2 = sort[y3,y4]!!0;
+		b1 = sort[y1,y2]!!1;
+		b2 = sort[y3,y4]!!1;
 
 --Aufgabe 2.a
 oddsum::Int->Int
