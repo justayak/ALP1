@@ -1,4 +1,5 @@
 import Data.List
+import Text.Regex
 import Numeric
 
 --Aufgabe 1
@@ -53,7 +54,31 @@ binsum n | n`mod`2==0 = binsum(n-1)
 
 --Aufgabe 5
 hex2okt::String->String
-hex2okt n = "a"
+hex2okt n = bin2okt(replacePattern n [("0","0000"),("1","0001"),("2","0010"),
+	("3","0011"),("4","0100"),("5","0101"),("6","0110"),("7","0111"),("8","1000"),
+	("9","1001"),("A","1010"),("B","1011"),("C","1100"),("D","1101"), ("E","1110"), 
+	("F","1111")])
+
+bin2okt::String->String
+bin2okt	[] = ""
+bin2okt (a:b:c:ls) = fuz(a:b:c:[]) ++ bin2okt(ls)
+bin2okt (b:c:ls) = fuz('0':(b:c:[])) ++ bin2okt(ls)
+bin2okt (c:ls) = fuz("00"++(c:[])) ++ bin2okt(ls)
+
+fuz n = replacePattern n [("000", "0"), ("001", "1"),("010", "2"),("011", "3"),
+	("100", "4"),("101", "5"),("110", "6"),("111", "7")];
+
+-- ersetzt die pattern in dem Zielstring:
+-- replacePattern "hallo" [("a", "z"),("ll","_")] -> hz_o	
+replacePattern:: String->[(String,String)]->String
+replacePattern a [] = a
+replacePattern a (b:bs) = replacePattern w bs where 
+	w = replace a g h;
+	g = fst(b);
+	h = snd(b);
+
+replace::String->String->String->String
+replace a b c = subRegex (mkRegex b) a c
 
 --Aufgabe 6
 -- KP ob ich die Aufgabe richtig verstanden hab: was mein Prog 
@@ -75,4 +100,3 @@ addList a b | length(a) /= length(b) = error "fucked up"
 	| otherwise = addListRec a b
 addListRec [] [] = []
 addListRec (a:as) (b:bs) = (a+b) : addList as bs
-
