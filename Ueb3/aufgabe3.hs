@@ -1,3 +1,6 @@
+import Data.Time.Clock.POSIX
+import System.IO.Unsafe
+
 -- Aufgabe 1
 twoComplement::[Int]->[Int]
 twoComplement a = addone (map (1-)  a)
@@ -27,12 +30,23 @@ updateList (x:xs) i elem = x:updateList xs (i-1) elem
 -- Aufgabe 5
 random :: Int -> Int 
 random seed = (25173*seed + 13849) `mod` 65536 
-randList :: Int -> [Int]
-randList n = randList' n [random n]
-	where
-	randList' n xs 
-		| (length xs) == n = xs 
-		| otherwise = randList' n (a:xs) 
-						where 
-						a = random (head xs)
+randUntilRepeat::[Int]
+randUntilRepeat = helper [] (random millis)
+ 	where 
+ 	helper::[Int]->Int->[Int]
+ 	helper rx r | r `elem` rx = rx
+		| otherwise = helper (rx ++ [r]) (random (millis - r))
+	
+millis::Int
+millis = unsafePerformIO $ ( round `fmap` getPOSIXTime )
+
+-- Aufgabe 6
+onlyPara::[Char]->[Char]
+onlyPara x = [i | i<-x, i=='('||i==')'||i=='['||i ==']'||i=='{'||i== '}']
+
+-- Aufgabe 7
+encode::[Char]->Int->[Char]
+encode str c = [i|i<-str, ces i]
+	where 
+	
 
