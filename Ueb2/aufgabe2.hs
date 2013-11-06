@@ -10,7 +10,7 @@ area::Rectangle -> Double
 area (a,b)= abs(fst(a)-fst(b)) * abs(snd(a)-snd(b))
 
 overlaps::Rectangle->Rectangle->Bool
-overlaps ((x1,y1),(x2,y2)) ((x3,y3),(x4,y4)) = ((l1 < r2) &&(r1 > l2) && (t1 < b2) && (b1 > t2)) 
+overlaps ((x1,y1),(x2,y2)) ((x3,y3),(x4,y4)) = abs(l1-l2) <= (r1-r2) && abs(t1-t2) <= (b1-t1)
 	where l1 = sort[x1,x2]!!0;
 		l2 = sort[x3,x4]!!0;
 		r1 = sort[x1,x2]!!1;
