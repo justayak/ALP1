@@ -1,5 +1,6 @@
 import Data.Time.Clock.POSIX
 import System.IO.Unsafe
+import Data.Char
 
 -- Aufgabe 1
 twoComplement::[Int]->[Int]
@@ -46,7 +47,10 @@ onlyPara x = [i | i<-x, i=='('||i==')'||i=='['||i ==']'||i=='{'||i== '}']
 
 -- Aufgabe 7
 encode::[Char]->Int->[Char]
-encode str c = [i|i<-str, ces i]
-	where 
+encode str c = [toEnum ( fromEnum(i) + c) |i<-str]
+decode::[Char]->Int->[Char]
+decode str c = [toEnum ( fromEnum(i) - c) | i <- str]
 	
-
+-- Aufgabe 8
+calculateWhile::(a->a)->(a->Bool)->[a]->[a]
+calculateWhile f p list = takewhile 
