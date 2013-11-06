@@ -9,8 +9,14 @@ type Rectangle=(Point,Point)
 area::Rectangle -> Double
 area (a,b)= abs(fst(a)-fst(b)) * abs(snd(a)-snd(b))
 
+-- bla bla sort kann man noch wegoptimieren aber jaa.. läuft 
 overlaps::Rectangle->Rectangle->Bool
+<<<<<<< HEAD
 overlaps ((x1,y1),(x2,y2)) ((x3,y3),(x4,y4)) = abs(l1-l2) <= (r1-r2) && abs(t1-t2) <= (b1-t1)
+=======
+overlaps ((x1,y1),(x2,y2)) ((x3,y3),(x4,y4)) = ((l1 <= l2 && l2 <= r1) || (l1 <= r2 && r1 >= r2)) &&
+	((t1 <= t2 && b1 >= t2) || (t1 <= b2 && b1 >= b2))
+>>>>>>> 1482a97df5c8f92099dd03574bfade150c0c1e14
 	where l1 = sort[x1,x2]!!0;
 		l2 = sort[x3,x4]!!0;
 		r1 = sort[x1,x2]!!1;
