@@ -53,13 +53,23 @@ decode str c = [toEnum ( fromEnum(i) - c) | i <- str]
 	
 -- Aufgabe 8
 calculateWhile::(a->a)->(a->Bool)->[a]->[a]
-calculateWhile f p list = takeWhile (not p) list
+calculateWhile f p list = yuss f p [] (list!!0) (tail list) False
+	where 
+		yuss::(a->a)->(a->Bool)->[a]->a->[a]->Bool->[a]
+		yuss f p front elem [] running = front ++ [elem]
+		yuss f p front elem back running = if p elem then
+			yuss f p (front ++ [ f elem ]) (back!!0) (tail back) True
+			else if running then
+				front ++ [elem] ++ back
+			else 
+				yuss f p (front ++ [elem]) (back!!0) (tail back) False
 
-{-qual::(a->a)->(a->Bool)->[a]->[a]
-qual f p (x:xs) = findStrt f p [] x xs where
-	findStrt::(a->a)->(a->Bool)->[a]->a->[a]->[a]
-	findStrt f p front elem [] = front ++ [elem]
-	findStrt f p front elem x:xs | p elem = xs
-		| otherwise = findStrt f p (front ++ [elem]) x xs
--}
-
+-- Aufgabe 9
+text2words::[Char]->[[Char]]
+text2words text = text2wordsRec text [] []
+	where
+	text2wordsRec::[Char]->[Char]->[[Char]]->[[Char]]
+	text2wordsRec [] word acc = acc ++ [word]
+	text2wordsRec (c:text) word acc = if c == ' ' || c == '.' || c == ',' || c == '?' 
+		then text2wordsRec text [] (if length word > 0 then (acc ++ [word]) else acc)
+		else text2wordsRec text (word ++ [c]) acc
