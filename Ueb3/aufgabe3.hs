@@ -53,13 +53,13 @@ decode str c = [toEnum ( fromEnum(i) - c) | i <- str]
 	
 -- Aufgabe 8
 calculateWhile::(a->a)->(a->Bool)->[a]->[a]
-calculateWhile f p list = list
+calculateWhile f p list = takeWhile (not p) list
 
-qual::(a->a)->(a->Bool)->[a]->[a]
+{-qual::(a->a)->(a->Bool)->[a]->[a]
 qual f p (x:xs) = findStrt f p [] x xs where
 	findStrt::(a->a)->(a->Bool)->[a]->a->[a]->[a]
 	findStrt f p front elem [] = front ++ [elem]
 	findStrt f p front elem x:xs | p elem = xs
 		| otherwise = findStrt f p (front ++ [elem]) x xs
-
+-}
 
