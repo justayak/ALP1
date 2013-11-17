@@ -32,8 +32,8 @@ binom n 0 = 1
 binom 0 k = 0
 binom n k = binom (n-1) (k-1) * n `div` k
 -- Aufgabe 2 c
-binom_behindrt::Integer->Integer->Integer
-binom_behindrt n k = truncate( inner (fromInteger  n) (fromInteger  k) 0.0 ) where
+binom_behndrt::Integer->Integer->Integer
+binom_behndrt n k = truncate( inner (fromInteger  n) (fromInteger  k) 0.0 ) where
 	inner::Float->Float->Float->Float
 	inner n k acc | acc == k = 1
 		| otherwise = ((n - k + 1 + acc) / (k-acc) ) * inner n k (acc+1)
@@ -44,5 +44,17 @@ positions c str = inner c str 0 [] where
 	inner c [] i acc = acc
 	inner c (f:str) i acc | f == c = inner c str (i+1) (acc ++ [i])
 		|otherwise = inner c str (i+1) acc
--- Aufgabe 3 b
+-- Aufgabe 3 b (higher order my arse)
 positions_list::Char->[Char]->[Int]
+positions_list c str = [i |i <-[0..((length str)-1)], (str!!i) == c]
+-- Aufgabe 4
+paintPicture :: ((Int, Int, Int) -> Char) -> Int -> [Char]
+paintPicture f size = paint size (map f [(x,y,size) | x <- [1..size], y <- [1..size]])
+                      where
+                        paint 0  []     = []
+                        paint 0 (c:cs)  = '\n' : (paint size (c:cs))
+                        paint n (c:cs)  = c: (paint (n-1) cs)
+
+diag (x,y,size) = if (x==y) then 'a' else ' '
+
+test4 = putStrLn (paintPicture diag 30)
