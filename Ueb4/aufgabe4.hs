@@ -55,6 +55,28 @@ paintPicture f size = paint size (map f [(x,y,size) | x <- [1..size], y <- [1..s
                         paint 0 (c:cs)  = '\n' : (paint size (c:cs))
                         paint n (c:cs)  = c: (paint (n-1) cs)
 
-diag (x,y,size) = if (x==y) then 'a' else ' '
+farm(x,y,size) | x > 5 && x <= 15 && y > 5 && y <= 15 = if x > y then ' ' else '0'
+	|x <= 10 = '.'
+	|otherwise = '#'
 
-test4 = putStrLn (paintPicture diag 30)
+squares(x,y,size) | x<y = if (x+y) > (size+1) then '#' else '.'
+	|x > half && y < half = if (y >= onesix && y <= onethree && xhalf >= onesix && xhalf <= onethree  ) then ' ' else '*'
+	|otherwise=' ' 
+	where 
+	half = size `div` 2; 
+	xhalf = x - half - 1;
+	onesix = size `div` 6;
+	onethree = size `div` 3;
+	
+diamon(x,y,size) | x < half && y < half = if (x+y) < half then ' ' else '|'
+	| x >= half && y >= half = if ((y-half)+x) < size then '|' else ' ' 
+	| x < half && y >= half = if (y-x) < half then '|' else ' '
+	| otherwise = if (x-y) < half then '|' else ' '
+	where
+	half = size `div` 2; 
+
+	
+test0 = putStrLn (paintPicture farm 20)
+test1 = putStrLn (paintPicture squares 40)
+test2 = putStrLn (paintPicture diamon 30)
+-- oh man der krams ist ja bonus... 
