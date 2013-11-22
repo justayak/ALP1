@@ -3,7 +3,6 @@
 --longestRepSeq
 
 
-
 -- Aufgabe 2a
 flatten::[[a]]->[a]
 flatten l = foldr (++) [] l
@@ -17,7 +16,7 @@ flattenL l = foldl (++) [] l
 -- besser klar 
 -- Aufgabe 3
 bin2dec::[Int]->Int
-bin2dec = foldl1 ( (+) . (*10))
+bin2dec l = foldl (\x y -> x*2+y) 0 l
 
 temp::[Int]->Int
 temp l = foldl (+) 2 l
