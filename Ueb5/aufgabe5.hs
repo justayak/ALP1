@@ -1,8 +1,3 @@
--- Aufgabe 1a
---longestRepSeq::(Ord a)=>[a]->[a]
---longestRepSeq
-
-
 -- Aufgabe 2a
 flatten::[[a]]->[a]
 flatten l = foldr (++) [] l
@@ -13,7 +8,7 @@ flattenL l = foldl (++) [] l
 -- foldr ist besser, da die Funktionswerte nicht vertauscht
 -- werden müssen (foldr f ist besser als foldl (flip f))
 -- Außerdem kommt foldr dank lazy ev. mit unendlichen Listen
--- besser klar 
+-- besser klar blabla
 -- Aufgabe 3
 bin2dec::[Int]->Int
 bin2dec l = foldl (\x y -> x*2+y) 0 l
