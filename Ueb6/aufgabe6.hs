@@ -1,4 +1,4 @@
-data Nat = Zero | Succ Nat
+import QRationals
 
 -- Aufgabe 1
 ngerade::Nat->Bool
