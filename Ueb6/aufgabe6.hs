@@ -30,10 +30,6 @@ zggt::ZInt->ZInt->ZInt
 zggt a b = int2Zint(gcd (zint2Int(a)) (zint2Int(b)))
 -- Aufgabe 2
 data SBTree = L|N SBTree SBTree deriving Show
-testTree::SBTree
-testTree = N (N (N L L) (N L L)) (N (N L L) L)
-startTree::SBTree
-startTree = (N L L)
 depth::SBTree->Integer
 depth L = 0
 depth (N lt rt) = (max (depth lt) (depth rt)) + 1
@@ -59,9 +55,29 @@ deleteLeaf (N lt rt) | (((depth lt)>(depth rt))) = (N (deleteLeaf lt) rt)
 deleteLeafs::SBTree->Integer->SBTree
 deleteLeafs a 0 = a
 deleteLeafs a count = deleteLeafs (deleteLeaf(a)) (count - 1)
-
 full::SBTree->Bool
 full (N L L) = True
 full (N lt L) = False
 full (N L rt) = False -- sollte nie auftreten..
 full (N lt rt) = full(lt) && full(rt)
+-- Aufgabe 3
+data BSearchTree a = Nil | Node a (BSearchTree a) (BSearchTree a) deriving (Show,Eq)
+create::BSearchTree Integer
+create = Node 3 Nil Nil
+create2::Integer->BSearchTree Integer->BSearchTree Integer
+create2 0 a = a
+create2 c a = create2 (c-1) (insert c a)
+createReal::BSearchTree Integer
+createReal = create2 7 create
+smallest::(Ord a)=>BSearchTree a->a
+smallest(Node x Nil _) = x
+smallest(Node x leftTree _) = smallest leftTree
+insert::(Ord a)=>a->BSearchTree a->BSearchTree a
+insert a Nil=Node a Nil Nil
+insert a (Node x lt rt) | a<x = Node x (insert a lt) rt
+	|otherwise = Node x lt (insert a rt)
+twoChildren::(Ord a)=> BSearchTree a -> Bool
+twoChildren Nil = True
+twoChildren (Node a Nil rt) = False
+twoChildren (Node a lt Nil) = False
+twoChildren (Node a lt rt) = (twoChildren lt) && (twoChildren rt)
